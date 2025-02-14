@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yedam.app.mybatis.mapper.TestEmpMapper">
+	<!-- <select id="empList" resultType="com.yedam.app.mybatis.service.EmpInfo"> -->
+	<select id="empList" resultType="EmpInfo">
+		SELECT employee_id
+        	, last_name
+        	, hire_date
+        	, salary
+		FROM employees
+		ORDER BY employee_id
+	</select>
+</mapper>
