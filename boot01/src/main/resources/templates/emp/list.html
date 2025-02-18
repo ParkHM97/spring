@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/">
+<head>
+<meta charset="UTF-8">
+<meta name="contextPath" th:value="${contextPath}">
+<!-- contextPath를 가져옴 -->
+<title>사원관리</title>
+<style>
+	table, th, td {
+		border : 1px solid black;
+	}
+</style>
+</head>
+<body>
+	<div>
+		<h3>전체 사원 조회</h3>
+		<table>
+			<thead>
+				<tr>
+					<th>No.</th>
+					<th>사원번호</th>
+					<th>이름</th>
+					<th>입사일자</th>
+					<th>업무</th>
+				</tr>
+			</thead>
+			<tbody>
+				<th:block th:each=" info, sts : ${emps}">
+				<!--/* 두 번째 매개변수(임시변수)(sts) 는 반복문이 실행되고 있는 정보 */-->
+					<!--/* 반복하려는 태그 (${emps}는 model이 가지고 있는 변수!! -> model : html에 전달함) info는 매개변수 */-->
+					<!--/* 임시변수 info는 반복문 안의 범위까지만(block 태그) */-->
+					<tr th:onclick="|location.href='@{/empInfo(employeeId=${info.employeeId})}'|">
+													<!-- ㄴ ? 뒤에 key 삽입  -->
+						<td>[[ ${sts.count} ]]</td>
+						<!--/* index는 0부터 / count는 1부터 */-->
+						<td th:text="${info.employeeId}"></td>
+						<td th:text="${info.lastName}"></td>
+						<!--/*<td>[[${info.hireDate}]]</td>  */-->
+						<td>[[${#dates.format(info.hireDate, "yyyy년 MM월 dd일")}]]</td>
+						<td>[[${info.jobId}]]</td>
+					</tr>
+				</th:block>
+			</tbody>
+		</table>
+	</div>
+		<script>
+		const context = document.querySelector('meta[name="contextPath"]').getAttribute('value');
+		// meta태그는 value 속성 작동 X
+		let trTag = document.querySelectorAll('tbody > tr');
+			trTag.forEach(tag => {
+				tag.addEventListener('click', moveInfoPage);
+			})
+		function moveInfoPage(event){
+				let selectedTr = event.currentTarget;
+				let eid = selectedTr.children[1].textContent; // 선택된 tr태그의 두번째 자식 요소의 텍스트값
+				let url = context + '/empInfo?employeeId=' + eid;
+				//location.href = url; 
+				// context-path가 변경될 때
+			}
+	</script>
+</body>
+</html>

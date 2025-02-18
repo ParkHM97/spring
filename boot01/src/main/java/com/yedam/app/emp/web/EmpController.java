@@ -37,11 +37,17 @@ public class EmpController {
 			model.addAttribute("emps", list);
 			// 3) View		
 			return "emp/list";
+			
+			// prefix , classpath:/templates/
+			// suffix , .html
+			
+			// prefix + return + suffix
+			// classpath:/templates/ + emp/list + .html 
 	}
 	
 	// 단건조회 : GET + 전달받을 데이터 => QueryString 
 	// 1) URL + Method
-	@GetMapping("empInfo")
+	@GetMapping("empInfo") // empInfo?employeeId=100
 	public String empInfo(EmpVO empVO, Model model) {// Model => response 대신 사용 
 		//EmpVO => 사용자가 서버에 준 값, Model은 서버가 사용자에게 돌려줄 값
 	// 2) Service
@@ -49,7 +55,9 @@ public class EmpController {
 	// 2-1) Service의 결과를 View에 전달
 		model.addAttribute("emp", findVO);
 	// 3) View
-		return "emp/info";
+		return "emp/info";	
+		// prefix + return + suffix
+		// classpath:/templates/emp/info.html
 	}
 	
 	// 등록 - 페이지  : GET
