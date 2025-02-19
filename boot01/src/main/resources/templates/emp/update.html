@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{common/layouts/default_layout}" 
+	  layout:fragment="content">
+<head>
+<meta charset="UTF-8">
+<meta name="contextPath" th:value="${contextPath}">
+<title></title>
+</head>
+<body>
+	<form name="updateForm" th:object="${emp}">
+	<!-- form name => 변수와 유사하게 사용, form만 가능함, 콘솔에 updateForm 입력해보기, submit일 때만 => updateForm/addEventListener -->
+		<h3>사원 정보 수정</h3>
+		<div>
+			<label for="eid">사원번호</label>
+			<input type="text" id="eid" th:field="*{employeeId}" readonly>
+												<!-- ${emp}가 가지고 있는 값 중 하나 -->
+		</div>
+		<div>
+			<label for="ename">이름</label>
+			<input type="text" id="ename" th:field="*{lastName}">
+		</div>
+		<div>
+			<label for="email">이메일</label>
+			<input type="email" id="email" th:field="*{email}">
+		</div>
+		<div>
+			<label for="hDate">입사일</label>
+			<input type="date" id="hDate" th:field="*{hireDate}">
+											<!-- 타입이 Date 이고 @DateTimeFormat이 존재하면 핸들러어댑터가 자동 설정해줌 (VO에 있는) -->
+		</div>
+		<div>
+			<label for="job">업무</label>
+			<input type="text" id="job" th:field="*{jobId}">
+		</div>
+		<div>
+			<label for="sal">급여</label>
+			<input type="number" id="sal" step="0.01" min="1" th:field="*{salary}">
+		</div>
+		<div>
+			<button type="button">수정</button>
+		</div>
+	</form>
+	<script>
+	const context = document.querySelector('meta[name="contextPath"]').getAttribute('value');
+		
+	document.querySelector('form[name="updateForm"] button')
+		.addEventListener('click', updateAjax);
+		function updateAjax(event){
+			// 1) 보낼 데이터 가져오기
+			let dataObj = getFormData();
+			fetch(`${context}/empUpdate`, {
+				method : 'post',
+				headers : {
+					'Content-Type' : 'application/json',
+				},
+				body : JSON.stringify(dataObj),
+			})
+			// 2) AJAX
+			.then(res => res.json())
+			.then(data => {
+			// 3) 응답 받은 데이터 처리
+			if(data.result){
+				alert(`${data.target.employeeId}를 수정했습니다.`);
+			} else {
+				alert('수정되지 않았습니다.');
+			}
+				console.log(result);
+			})
+			.catch(err => console.log(err));
+		} 
+		
+		function getFormData(){
+			let formData = new FormData(updateForm);
+			let obj = {};
+			formData.forEach((value, name) => {
+				obj[name] = value;
+			});
+			return obj;
+		};
+	</script>
+</body>
+</html>

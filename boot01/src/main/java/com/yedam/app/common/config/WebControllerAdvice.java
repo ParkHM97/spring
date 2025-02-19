@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import jakarta.servlet.http.HttpServletRequest;
 
+
 @ControllerAdvice
 public class WebControllerAdvice {
 	
@@ -13,4 +14,13 @@ public class WebControllerAdvice {
 		return request.getContextPath();
 		//${pageContext.request.contextPath}
 	}
+
+	// 서버 내부의 예외 처리 
+	/*
+	@ExceptionHandler // 예외처리 
+	public ResponseEntity<String> handle(IOException ex) {
+		
+	}
+	
+	*/
 }

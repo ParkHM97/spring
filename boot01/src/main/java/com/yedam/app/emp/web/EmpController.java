@@ -64,6 +64,8 @@ public class EmpController {
 	@GetMapping("empInsert")
 	public String empInsertForm() {
 		return "emp/insert";
+		// prefix + return + suffix
+		// classpath:/templates/emp/insert.html
 	}
 	
 	// 등록 - 처리 : POST => form 태그를 통한 submit 
@@ -84,7 +86,7 @@ public class EmpController {
 	}
 	
 	// 수정 - 페이지 : GET <=> 단건조회 (경로와 출력 페이지만 변경)
-	@GetMapping("empUpdate")
+	@GetMapping("empUpdate") // /empUpdate?employeeId=100
 	public String empUpdate(EmpVO empVO, Model model) {// Model => response 대신 사용 
 		//EmpVO => 사용자가 서버에 준 값, Model은 서버가 사용자에게 돌려줄 값
 	// 2) Service
@@ -92,7 +94,9 @@ public class EmpController {
 	// 2-1) Service의 결과를 View에 전달
 		model.addAttribute("emp", findVO);
 	// 3) View
-		return "emp/empUpdate";
+		return "emp/update";
+		// prefix + return + suffix
+		// classpath:/templates/emp/update.html
 	}
 	
 	// 수정 - 처리 : POST / AJAX => JSON (@RequestBody)
@@ -105,8 +109,8 @@ public class EmpController {
 		return empService.modifyEmpInfo(empVO);
 	}
 	
-	// 단건삭제 - 처리 : GET + 전달 받을 데이터 1건 => QueryString(@RequestParam)
-	@GetMapping("empDelete")
+	// 단건삭제 - 처리 : GET + 전달 받을 데이터 1건 => QueryString(@RequestParam)=>QueryString
+	@GetMapping("empDelete") // /empDelete?employeeId=100
 	public String empDelete(Integer employeeId) {
 		empService.removeEmpInfo(employeeId);
 		return "redirect:empList"; // 이미 삭제된 데이터가 존재하면 안 되기 때문에 반드시 redirect(전체목록으로)

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{common/layouts/default_layout}" 
+	  layout:fragment="content">
+<head>
+<meta charset="UTF-8">
+<title>사원등록</title>
+</head>
+<body>
+	<form th:action="@{/empInsert}" method="post" enctype="application/x-www-form-urlencoded">
+									<!-- 디폴트 : application/x-www-form-urlencoded, 이미지를 보낼 경우 multipart/form-data (필수) -->
+		<h3>사원 정보 등록</h3>
+		<div>
+			<label for="ename">이름</label>
+			<input type="text" id="ename" name="lastName">
+			<!-- 통신을 기반한 input name에 임의의 값을 작성해서는 안 됨, 서버에 있는 값을 입력해야 한다 -->
+		</div>
+		<div>
+			<label for="email">이메일</label>
+			<input type="email" id="email" name="email">
+		</div>
+		<div>
+			<label for="hDate">입사일</label>
+			<input type="date" id="hDate" name="hireDate">
+		</div>
+		<div>
+			<label for="job">업무</label>
+			<input type="text" id="job" name="jobId">
+		</div>
+		<div>
+			<label for="sal">급여</label>
+			<input type="number" id="sal" step="0.01" min="1" name="salary">
+		</div>
+		<div>
+			<button type="submit">등록</button>		
+		</div>
+	</form>
+</body>
+</html>

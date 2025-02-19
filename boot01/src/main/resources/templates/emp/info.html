@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org/">
+<html xmlns:th="https://www.thymeleaf.org/"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{common/layouts/default_layout}" 
+	  layout:fragment="content">
 <head>
 <meta charset="UTF-8">
 
@@ -26,16 +29,20 @@
 		</div>
 		<div>
 			<label for="job">업무</label>
-			<input type="text" id="job" th:value="${emp.hireDate}" readonly>
+			<input type="text" id="job" th:value="${emp.jobId}" readonly>
 		</div>
 		<div>
 			<label for="sal">급여</label>
 			<input type="number" id="sal" step="0.01" th:value="${emp.salary}" readonly>
 		</div>
 		<div>
-			<button type="button">수정</button>
-			<button type="button">목록</button>
-			<button type="button">삭제</button>
+			<button type="button" th:onclick="|location.href='@{/empUpdate(employeeId=${emp.employeeId})}'|">수정</button>
+			<button type="button" th:onclick="|location.href='@{/empList}'|">목록</button>
+			<!-- onclick : 이벤트 처리 함수 (click) 핸들러 -->
+			<button type="button" th:onclick="|location.href='@{/empDelete(employeeId=${emp.employeeId})}'|">삭제</button>
+																<!-- 링크 표현식에서는 $ 사용 X => ()로 ? 와 $ 사용 -->
+																<!-- 값을 두번 넘길 때는 , (&의 의미) 사용 
+																th:onclick="|location.href='@{/empDelete(employeeId=${emp.employeeId}, country=Kor)}'|" -->
 		</div>
 	</div>
 

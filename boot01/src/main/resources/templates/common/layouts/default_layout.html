@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org/" 
+ 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+<meta charset="UTF-8">
+<!--/* common/configs/default_config 경로상 prefix, suffix 제거하고 남은 것, fragment 이름*/-->
+<th:block th:replace="~{common/configs/default_config :: serverInfo}"></th:block>
+<!-- 이름 중요함~~ 대소문자 필수~~ -->
+<th:block th:replace="~{common/configs/default_config :: BootstrapConfig}"></th:block>
+</head>
+<body>
+	<div class="container">
+		<header th:insert="~{common/fragments/default_header :: HeaderFrag}"></header>
+		<!-- insert는 하위(자식)요소로, replace는 통째로 대체함 -->
+		<main layout:fragment="content"></main>
+		<footer th:replace="~{common/fragments/default_footer :: FooterFrag}"></footer>
+	</div>
+</body>
+</html>

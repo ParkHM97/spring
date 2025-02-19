@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org/">
+<html xmlns:th="https://www.thymeleaf.org/" 
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{common/layouts/default_layout}" 
+	  layout:fragment="content"><!--/* 레이아웃 파일의 layout:fragment 값 (어느 것을 사용할 것인지) */-->
+	  <!--/* common/layouts/default_layout */-->
 <head>
 <meta charset="UTF-8">
-<meta name="contextPath" th:value="${contextPath}">
-<!-- contextPath를 가져옴 -->
 <title>사원관리</title>
 <style>
 	table, th, td {
@@ -30,7 +32,7 @@
 					<!--/* 반복하려는 태그 (${emps}는 model이 가지고 있는 변수!! -> model : html에 전달함) info는 매개변수 */-->
 					<!--/* 임시변수 info는 반복문 안의 범위까지만(block 태그) */-->
 					<tr th:onclick="|location.href='@{/empInfo(employeeId=${info.employeeId})}'|">
-													<!-- ㄴ ? 뒤에 key 삽입  -->
+													<!-- ㄴ ? 뒤에 key 삽입 | | < thymeleaf의 template 문법  -->
 						<td>[[ ${sts.count} ]]</td>
 						<!--/* index는 0부터 / count는 1부터 */-->
 						<td th:text="${info.employeeId}"></td>
